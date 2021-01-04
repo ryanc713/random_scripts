@@ -1,0 +1,55 @@
+#!/bin/bash
+
+function menu() {
+    clear
+    echo "***************************"
+    echo "*   Easy Netstat Script   *"
+    echo "***************************"
+    echo ""
+    echo "Select an option using 1-6:"
+    echo ""
+}
+menu
+echo "1. Display PID and program names.
+2. List all ports (Listening and non-listening).
+3. List all sockets in Listening State.
+4. To show the list of Network Interfaces
+5. To check what program is running on what port
+6. To check what port a program is running on"
+read opt
+case $opt in
+
+    1)
+    clear
+    netstat -pt
+    ;;
+    2)
+    clear
+    netstat -a | more
+    ;;
+    3)
+    clear
+    netstat -l
+    ;;
+    4)
+    clear
+    netstat -ie
+    ;;
+    5)
+    clear
+    echo "Enter a port number:"
+    read port
+    netstat -an | grep ':$port'
+    ;;
+    6)
+    clear
+    echo "Enter the name of the program:"
+    read prog
+    netstat -ap | grep $prog
+    ;;
+    *)
+    clear
+    echo "Not a valid option"
+    exit 1
+    ;;
+    esac
